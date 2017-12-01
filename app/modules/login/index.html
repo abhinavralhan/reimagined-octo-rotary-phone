@@ -1,0 +1,232 @@
+﻿
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="550314767986-cq8087ite19i6e5v0e68rrqvafcoohkn.apps.googleusercontent.com">
+
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+
+
+<div class="container margin-top-80">
+    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2" data-ng-show="vm.signIn">
+        <div class="panel panel-info">
+            <div class="panel-heading text-center">
+                Sign In
+            </div>
+            <div class="panel-body">
+                <form name="vm.loginForm" class="form-horizontal" data-ng-submit="vm.login(vm.getUser);">
+                    <div class="col-xs-12 input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="login-username" type="text" class="form-control" name="username" value="admin" placeholder="Username" data-ng-model="vm.getUser.Username" required>
+                    </div>
+                    <div class="col-xs-12 input-group margin-top-20">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="login-password" type="password" class="form-control" name="password" placeholder="Password" data-ng-model="vm.getUser.Password" required value="admin">
+                    </div>
+                    <div class="col-xs-12 margin-top-20">
+                        <span class="pull-left">
+                            <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                        </span>
+                        <span class="pull-right">
+                            <a href="#">Forgot Password?</a>
+                        </span>
+                    </div>
+                    <div class="col-xs-12 margin-top-20">
+                        <button type="submit" class="btn btn-block btn-success">
+                            Login <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                        <button type="button" class="btn btn-block btn-primary" data-ng-click="vm.signIn=false;">
+                            Sign Up <span class="glyphicon glyphicon-hand-up"></span>
+                        </button><!-- 
+                        <button id="sign-in">Sign In/Register</button>
+                        <button id="sign-out">Sign Out</button> -->
+
+<!-- 
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAyp1KV7mqCtgZAm2YY3sRaI1aGQRHy5n4",
+    authDomain: "vitt-finance.firebaseapp.com",
+    databaseURL: "https://vitt-finance.firebaseio.com",
+    projectId: "vitt-finance",
+    storageBucket: "",
+    messagingSenderId: "240348806188"
+  };
+  firebase.initializeApp(config);
+</script> -->
+
+
+  <!--Handle auth events-->
+  <!-- <script>
+    firebase.auth().onAuthStateChanged(function(user) {
+      window.user = user;
+    });
+  </script> -->
+  
+  <!--Handle page events-->
+  <!-- <script>    
+    document.querySelector('#sign-in').addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var email = document.querySelector('#email').value;
+      var password = document.querySelector('#password').value
+      var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+      var auth = firebase.auth();
+      var currentUser = auth.currentUser;
+      
+      Step 2
+       Get a credential with firebase.auth.emailAuthProvider.credential(emailInput.value, passwordInput.value)
+       If there is no current user, log in with auth.signInWithCredential(credential)
+       If there is a current user an it's anonymous, atttempt to link the new user with firebase.auth().currentUser.link(credential) 
+       The user link will fail if the user has already been created, so catch the error and sign in.
+    });
+    
+    document.querySelector('#sign-out').addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      firebase.auth().signOut();
+    });
+  </script> -->
+<!-- 
+
+<script type="text/javascript">
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    firebase.auth().signInWithRedirect(provider);
+
+    firebase.auth().languageCode = 'pt';
+    firebase.auth().getRedirectResult().then(function(result) {
+      if (result.credential) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // ...
+      }
+      // The signed-in user info.
+      var user = result.user;
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+
+    firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        window.location = '../views/home.html'; //After successful login, user will be redirected to home.html
+      }
+    });
+
+
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified;
+
+    if (user != null) {
+      name = user.displayName;
+      email = user.email;
+      photoUrl = user.photoURL;
+      emailVerified = user.emailVerified;
+      uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                       // this value to authenticate with your backend server, if
+                       // you have one. Use User.getToken() instead.
+    }
+
+    var user = firebase.auth().currentUser;
+
+    user.sendEmailVerification().then(function() {
+      // Email sent.
+    }).catch(function(error) {
+      // An error happened.
+    });
+
+    var user = firebase.auth().currentUser;
+    var newPassword = getASecureRandomPassword();
+
+    user.updatePassword(newPassword).then(function() {
+    // Update successful.
+    }).catch(function(error) {
+    // An error happened.
+    });
+
+    var auth = firebase.auth();
+    var emailAddress = "user@example.com";
+
+    auth.sendPasswordResetEmail(emailAddress).then(function() {
+      // Email sent.
+    }).catch(function(error) {
+      // An error happened.
+    });
+
+    firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}).catch(function(error) {
+  // An error happened.
+});
+</script>
+
+ -->
+
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" data-ng-show="!vm.signIn">
+        <div class="panel panel-info">
+            <div class="panel-heading text-center">
+                Sign Up
+            </div>
+
+
+            <div class="panel-body">
+                <form name="vm.registrationForm" data-ng-submit="vm.register();">
+                    <div class="form-group">
+                        <label for="email" class="col-md-12 control-label">Email</label>
+                        <div class="col-md-12">
+                            <input type="email" class="form-control" name="email" placeholder="Email Address" required data-ng-model="vm.setUser.Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-md-12 control-label margin-top-10">User Name</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" name="lastname" placeholder="Last Name" required data-ng-model="vm.setUser.Username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-md-12 control-label margin-top-10">Password</label>
+                        <div class="col-md-12">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required data-ng-model="vm.setUser.Password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpasswd" class="col-md-12 control-label margin-top-10">Confirm Password</label>
+                        <div class="col-md-12">
+                            <input type="password" class="form-control" name="cpasswd" placeholder="Confirm Password" required data-ng-model="vm.setUser.confirmPassword">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 margin-top-20">
+                        <div class="col-xs-6 padding-left-none">
+                            <button type="submit" class="btn btn-block btn-success">
+                                Register <span class="glyphicon glyphicon-play"></span>
+                            </button>
+                        </div>
+                        <div class="col-xs-6 padding-right-none">
+                            <button type="button" class="btn btn-block btn-warning" data-ng-click="vm.signIn=true;">
+                                Cancel <span class="glyphicon glyphicon-move"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+

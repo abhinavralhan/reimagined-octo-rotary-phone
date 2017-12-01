@@ -1,0 +1,162 @@
+﻿
+
+<script src="xlsx.full.min.js"></script>
+<!-- OpenCPU client library -->
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//cdn.opencpu.org/opencpu-0.4.js"></script>
+
+
+    <section class="content-header">
+        <h1>Export/Import Data</h1>
+        <ol class="breadcrumb">
+            <li><a><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Data</li>
+        </ol>
+    </section>
+
+    <h5>Uploading a xlsx File</h5>
+
+
+    <input type="file" import-sheet-js="" opts="gridOptions" multiple="false"  />
+    <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
+
+
+    <h5>Uploading a CSV File</h5>
+
+
+        <b>CSV File</b> <input type="file" id="csvfile"> 
+        <br />
+
+        <b>Header</b> <select id="header">
+        <option>true</option>
+        <option>false</option>
+        </select> 
+
+        <br />
+        <button id="submitbutton" type="button">read.csv</button>
+
+        <pre><code id="output"></code></pre>
+
+
+    <script type="text/javascript">
+        ocpu.seturl("//public.opencpu.org/ocpu/library/utils/R")
+
+        //actual handler
+        $("#submitbutton").on("click", function(){
+
+            //arguments
+            var myheader = $("#header").val() == "true";
+            var myfile = $("#csvfile")[0].files[0];
+                
+            if(!myfile){
+                alert("No file selected.");
+                return;
+            }
+
+            //disable the button during upload
+            $("#submitbutton").attr("disabled", "disabled");
+
+            //perform the request
+            var req = ocpu.call("read.csv", {
+                "file" : myfile,
+                "header" : myheader
+            }, function(session){
+                session.getConsole(function(outtxt){
+                    $("#output").text(outtxt); 
+                });
+            });
+                
+            //if R returns an error, alert the error message
+            req.fail(function(){
+                alert("Server error: " + req.responseText);
+            });
+            
+            //after request complete, re-enable the button 
+            req.always(function(){
+                $("#submitbutton").removeAttr("disabled")
+            });        
+        });    
+    </script>
+
+
+
+<!-- 
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-3 col-xs-6" data-ng-repeat="skill in vm.skills.development">
+
+
+                <div class="small-box bg-{{skill.theme}}-gradient">
+                    <div class="inner">
+                        <h3>{{skill.Percentage}}<small class="text-black">%</small></h3>
+                        <p class="text-bold">{{skill.Software}}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa"><img src="../../../../images/icons/{{skill.image}}.png" class="img-responsive" width="70" /></i>
+                    </div>
+                    <div class="progress progress-sm active">
+                        <div class="progress-bar progress-bar-{{skill.theme}} progress-bar-striped" role="progressbar" aria-valuenow="{{skill.Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{skill.Percentage}}%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-header">
+        <h1>Design Stack</h1>
+    </section>
+
+
+
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-3 col-xs-6" data-ng-repeat="skill in vm.skills.design">
+
+
+                <div class="small-box bg-{{skill.theme}}-gradient">
+                    <div class="inner">
+                        <h3>{{skill.Percentage}}<small class="text-black">%</small></h3>
+                        <p class="text-bold">{{skill.Software}}</p>
+                    </div>
+                    <div class="icon">
+                       <i class="fa"><img src="../../../../images/icons/{{skill.image}}.png" class="img-responsive" width="70" /></i>
+                    </div>
+                    <div class="progress progress-sm active">
+                        <div class="progress-bar progress-bar-{{skill.theme}} progress-bar-striped" role="progressbar" aria-valuenow="{{skill.Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{skill.Percentage}}%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="content-header">
+    <h1>Others</h1>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-3 col-xs-6" data-ng-repeat="skill in vm.skills.others">
+
+
+            <div class="small-box bg-{{skill.theme}}-gradient">
+                <div class="inner">
+                    <h3>{{skill.Percentage}}<small class="text-black">%</small></h3>
+                    <p class="text-bold">{{skill.Software}}</p>
+                </div>
+                <div class="icon">
+                    <i class="fa"><img src="../../../../images/icons/{{skill.image}}.png" class="img-responsive" width="70" /></i>
+                </div>
+                <div class="progress progress-sm active">
+                    <div class="progress-bar progress-bar-{{skill.theme}} progress-bar-striped" role="progressbar" aria-valuenow="{{skill.Percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{skill.Percentage}}%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+ -->

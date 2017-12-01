@@ -1,0 +1,60 @@
+﻿
+    <section class="content-header">
+        <h1>
+            Transactions
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><a><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Transactions</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+<!--     <div ng:controller="CartForm" class="mycontainer">
+ -->
+
+        <h3>Manage your purchases here!</h3>
+    <div class="row">
+
+
+
+        <table class="table">
+          <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Discount (%)</th>
+            <th>Total</th>
+            <th>Remove</th>
+            <th>Include?</th>
+          </tr>
+          <tr ng-repeat="item in invoice.items">
+            <td><input type="text" ng-model="item.description" class="input-small" placeholder="items name"></td>
+            <td><input type="number" ng-model="item.qty" ng-required class="input-mini"></td>
+            <td><input type="number" ng-model="item.cost" ng-required class="input-mini"></td>
+            <td><input type="number" ng-model="item.discount" ng-required class="input-mini"></td>
+            <!--   <td>{{item.tax}}%</td>      -->
+            <td>{{(item.qty * item.cost) * (1 - item.discount/100) }}Rs.</td>
+            <td>
+              <a href ng-click="removeItem($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            </td>
+            <td><input type="checkbox" ng-model="item.checked"></td>
+          </tr>
+          <tr>
+            <td><a class="btn btn-info btn-sm btn-block" href ng-click="addItem()">add new item</a></td>
+            <td colspan="6"></td>
+          </tr>
+          <tr class="row-total">
+            <td colspan="4"></td>
+            <td>Total:</td>
+            <td>{{total()}}Rs.</td>
+          </tr>
+        </table>
+    </div>
+       
+
+
+
+</section>

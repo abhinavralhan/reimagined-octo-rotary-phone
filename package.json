@@ -1,0 +1,21 @@
+{
+  "name": "vitt",
+  "version": "1.0.0",
+  "description": "finance management",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ranjithprabhuk/Angular-Bootstrap-Dashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ranjithprabhuk/Angular-Bootstrap-Dashboard/issues"
+  },
+  "homepage": "https://github.com/ranjithprabhuk/Angular-Bootstrap-Dashboard#readme"
+}
